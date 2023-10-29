@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Phoenix.Catalog.Service.props" />
+</Project>

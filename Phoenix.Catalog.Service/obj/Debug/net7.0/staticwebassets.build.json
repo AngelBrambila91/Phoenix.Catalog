@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "+Y6ihbZJYewu5gns6w9SOhJf+Pb7pJtd2DKH0kroNWo=",
+  "Source": "Phoenix.Catalog.Service",
+  "BasePath": "_content/Phoenix.Catalog.Service",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

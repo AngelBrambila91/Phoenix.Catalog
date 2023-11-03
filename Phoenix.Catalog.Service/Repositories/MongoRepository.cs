@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using MongoDB.Bson.IO;
 using MongoDB.Driver;
 
 /*
@@ -12,30 +14,28 @@ everything they need in a single document type
 • Need low latency, high availability and high scalability, which are classic features of NoSQL
 databases
 */
-public class GodsRepository : IGodsRepository
+public class MongoRepository<T> : IRepository<T> where T : IEntity
 {
     //Implemnt Dependecy Injection
-    private readonly IGodsRepository godsRepository;
-    private const string collectionName = "gods";
-    private readonly IMongoCollection<God>? dbCollection;
-    private readonly FilterDefinitionBuilder<God> filterBuilder = Builders<God>.Filter;
-    public GodsRepository(IMongoDatabase database)
+    private readonly IMongoCollection<T> dbCollection;
+    private readonly FilterDefinitionBuilder<T> filterBuilder = Builders<T>.Filter;
+    public MongoRepository(IMongoDatabase database, string collectionName)
     {
-        dbCollection = database.GetCollection<God>(collectionName);
+        dbCollection = database.GetCollection<T>(collectionName);
     }
 
-    public async Task<IReadOnlyCollection<God>> GetAllAsync()
+    public async Task<IReadOnlyCollection<T>> GetAllAsync()
     {
         return await dbCollection.Find(filterBuilder.Empty).ToListAsync();
     }
 
-    public async Task<God> GetAsync(Guid id)
+    public async Task<T> GetAsync(Guid id)
     {
-        FilterDefinition<God> filter = filterBuilder.Eq(entity => entity.Id, id);
-        return await dbCollection.Find<God>(filter).FirstOrDefaultAsync();
+        FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
+        return await dbCollection.Find<T>(filter).FirstOrDefaultAsync();
     }
 
-    public async Task CreateAsync(God entity)
+    public async Task CreateAsync(T entity)
     {
         if (entity is null)
         {
@@ -44,19 +44,19 @@ public class GodsRepository : IGodsRepository
         await dbCollection!.InsertOneAsync(entity);
     }
 
-    public async Task UpdateAsync(God entity)
+    public async Task UpdateAsync(T entity)
     {
         if (entity is null)
         {
             throw new ArgumentNullException(nameof(entity));
         }
-        FilterDefinition<God> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, entity.Id);
+        FilterDefinition<T> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, entity.Id);
         await dbCollection!.ReplaceOneAsync(filter, entity);
     }
 
     public async Task RemoveAsync(Guid id)
     {
-        FilterDefinition<God> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, id);
+        FilterDefinition<T> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, id);
         await dbCollection!.DeleteOneAsync(filter);
     }
 }

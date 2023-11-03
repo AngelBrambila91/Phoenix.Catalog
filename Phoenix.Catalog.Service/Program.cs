@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
@@ -7,11 +8,16 @@ var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).
 builder.Services.AddSingleton(serviceProvider =>
 {
     var mongoDbSettings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
-    var mongoClient = new MongoClient(connectionString: mongoDbSettings.ConnectionString);
-    return mongoClient.GetDatabase(name: serviceSettings.ServiceName);
+    var mongoClient = new MongoClient(connectionString: mongoDbSettings!.ConnectionString);
+    return mongoClient.GetDatabase(name: serviceSettings!.ServiceName);
 });
 
-builder.Services.AddSingleton<IGodsRepository, GodsRepository>();
+builder.Services.AddSingleton<IRepository<God>>(serviceProvider =>
+{
+    var database = serviceProvider.GetService<IMongoDatabase>();
+    return new MongoRepository<God>(database!, "gods");
+}
+);
 // Add services to the container.
 
 builder.Services.AddControllers();

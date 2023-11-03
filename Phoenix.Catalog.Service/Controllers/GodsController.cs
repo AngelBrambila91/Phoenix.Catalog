@@ -27,7 +27,8 @@ namespace Phoenix.Catalog.Service.Controllers
         public async Task<ActionResult<IEnumerable<GodDto>>> GetAsync()
         {
             var gods = (await godsRepository.GetAllAsync())
-            .Select(gods => gods.AsDto);
+            .Select(god => god.AsDto());
+            return Ok(gods);
         }
 
         [HttpGet("{id}")]
@@ -38,7 +39,7 @@ namespace Phoenix.Catalog.Service.Controllers
             {
                 return NotFound();
             }
-            return god.AsDto;
+            return god.AsDto();
         }
         
         [HttpPost]
@@ -53,7 +54,7 @@ namespace Phoenix.Catalog.Service.Controllers
             };
             
             await godsRepository.CreateAsync(god);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = god.Id }, god.AsDto);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = god.Id }, god.AsDto());
         }
 
         [HttpPut]
@@ -76,13 +77,13 @@ namespace Phoenix.Catalog.Service.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var index = await godsRepository.GetAsync(id);
+            var gods = await godsRepository.GetAsync(id);
             if(gods is null)
             {
                 return NotFound();
             }
 
-            await godsRepository.RemoveAsync(gods.id);
+            await godsRepository.RemoveAsync(gods.Id);
             return NoContent();
         }
     }

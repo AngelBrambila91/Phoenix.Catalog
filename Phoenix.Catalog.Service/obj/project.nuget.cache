@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "68L3kkfBaaJsWXz3yfKm3TvScjTvr2fJBZTpLJclOf0hPA+6R/wVJKu3Ick+fM219OhcgFUb31No6vfmSEwHPA==",
+  "dgSpecHash": "ZQXzG9K94vX61c2FXlV9vNkdnpqfPx8olOO2Ew7Pc6w0y1kldHuB/YBndcUKHWNgVm5z7LgZAAqaDR0ZSHXJeA==",
   "success": true,
-  "projectFilePath": "/Users/angelbrambila/Documents/Code/Phoenix.Catalog/Phoenix.Catalog.Service/Phoenix.Catalog.Service.csproj",
+  "projectFilePath": "/Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/Phoenix.Catalog.Service.csproj",
   "expectedPackageFiles": [
     "/Users/angelbrambila/.nuget/packages/awssdk.core/3.7.100.14/awssdk.core.3.7.100.14.nupkg.sha512",
     "/Users/angelbrambila/.nuget/packages/awssdk.securitytoken/3.7.100.14/awssdk.securitytoken.3.7.100.14.nupkg.sha512",

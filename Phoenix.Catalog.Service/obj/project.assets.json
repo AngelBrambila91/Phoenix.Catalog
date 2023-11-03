@@ -1247,11 +1247,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/angelbrambila/Documents/Code/Phoenix.Catalog/Phoenix.Catalog.Service/Phoenix.Catalog.Service.csproj",
+      "projectUniqueName": "/Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/Phoenix.Catalog.Service.csproj",
       "projectName": "Phoenix.Catalog.Service",
-      "projectPath": "/Users/angelbrambila/Documents/Code/Phoenix.Catalog/Phoenix.Catalog.Service/Phoenix.Catalog.Service.csproj",
+      "projectPath": "/Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/Phoenix.Catalog.Service.csproj",
       "packagesPath": "/Users/angelbrambila/.nuget/packages/",
-      "outputPath": "/Users/angelbrambila/Documents/Code/Phoenix.Catalog/Phoenix.Catalog.Service/obj/",
+      "outputPath": "/Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/angelbrambila/.nuget/NuGet/NuGet.Config"
@@ -1310,7 +1310,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.402/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
       }
     }
   }

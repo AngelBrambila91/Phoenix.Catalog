@@ -12,6 +12,7 @@ namespace Phoenix.Catalog.Service.Controllers
     [Route("gods")]
     public class GodsController : ControllerBase
     {
+        private readonly GodsRepository godsRepository = new();
         public static List<GodDto> gods = new()
         {
             new GodDto(Guid.NewGuid(),
@@ -23,57 +24,65 @@ namespace Phoenix.Catalog.Service.Controllers
         };
 
         [HttpGet]
-        public IEnumerable<GodDto> Get()
+        public async Task<ActionResult<IEnumerable<GodDto>>> GetAsync()
         {
-            return gods;
+            var gods = (await godsRepository.GetAllAsync())
+            .Select(gods => gods.AsDto);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<GodDto> GetById(Guid id)
+        public async Task<ActionResult<GodDto>> GetByIdAsync(Guid id)
         {
-            var god = gods.Where(god => god.Id == id).SingleOrDefault();
+            var god = await godsRepository.GetAsync(id);
             if(god is null)
             {
                 return NotFound();
             }
-            return god;
+            return god.AsDto;
         }
         
         [HttpPost]
-        public ActionResult<GodDto> Post(CreateGodDto createGodDto)
+        public async Task<ActionResult<GodDto>> PostAsync(CreateGodDto createGodDto)
         {
-            var god = new GodDto(Guid.NewGuid(), createGodDto.Name, createGodDto.Description, createGodDto.Price, DateTimeOffset.UtcNow);
-            gods.Add(god);
-            return CreatedAtAction(nameof(GetById), new { id = god.Id }, god);
+            var god = new God
+            {
+            Name = createGodDto.Name,
+            Description = createGodDto.Description,
+            Price = createGodDto.Price,
+            CreatedDate = DateTimeOffset.UtcNow
+            };
+            
+            await godsRepository.CreateAsync(god);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = god.Id }, god.AsDto);
         }
 
         [HttpPut]
-        public IActionResult Put(Guid id, UpdateGodDto updateGodDto)
+        public async Task<IActionResult> PutAsync(Guid id, UpdateGodDto updateGodDto)
         {
-            var existingGod = gods.Where(god => god.Id == id).SingleOrDefault();
+            var existingGod = await godsRepository.GetAsync(id);
             if(existingGod is null)
             {
                 return NotFound();
             }
-            var updatedGod = existingGod with
-            {
-                Name = updateGodDto.Name,
-                Description = updateGodDto.Description,
-                Price = updateGodDto.Price
-            };
+            
+            existingGod.Name = updateGodDto.Name;
+            existingGod.Description = updateGodDto.Description;
+            existingGod.Price = updateGodDto.Price;
 
-            var index = gods.FindIndex(existingGod => existingGod.Id == id);
-            gods[index] = updatedGod;
-
+            await godsRepository.UpdateAsync(existingGod);
             return NoContent();
         }
 
         [HttpDelete]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var index = gods.FindIndex(existingGod => existingGod.Id == id);
-            gods.RemoveAt(index);
+            var index = await godsRepository.GetAsync(id);
+            if(gods is null)
+            {
+                return NotFound();
+            }
 
+            await godsRepository.RemoveAsync(gods.id);
             return NoContent();
         }
     }

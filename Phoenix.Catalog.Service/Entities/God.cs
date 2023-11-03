@@ -1,3 +1,9 @@
+/*
+The class we use for this should not be confused with
+our DTOs because we want to have the freedom of updating how we store the items in
+the database at any given point, regardless of the contract that we need to honor with
+our service clients.
+*/
 public class God
 {
     public Guid Id { get; set; }

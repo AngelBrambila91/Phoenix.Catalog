@@ -1,5 +1,16 @@
 using MongoDB.Driver;
-
+/*
+MongoDB is a document-oriented NoSQL database which stores data in JSON-like documents with
+dynamic schema
+We will prefer a NoSQL solution (as opposed to a relational database) for our microservices because:
+• We won’t need relationships across the data, because each microservice manages its own database
+• We don’t need ACID guarantees, where ACID stands for atomicity, consistency, isolation and
+durability, which are properties of database transactions that we won’t need in our services.
+• We won’t need to write complex queries, since most of our service queries will be able to find
+everything they need in a single document type
+• Need low latency, high availability and high scalability, which are classic features of NoSQL
+databases
+*/
 public class GodsRepository
 {
     private const string collectionName = "gods";

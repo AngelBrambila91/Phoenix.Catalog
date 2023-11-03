@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+
 /*
 MongoDB is a document-oriented NoSQL database which stores data in JSON-like documents with
 dynamic schema
@@ -11,16 +12,15 @@ everything they need in a single document type
 • Need low latency, high availability and high scalability, which are classic features of NoSQL
 databases
 */
-public class GodsRepository
+public class GodsRepository : IGodsRepository
 {
+    //Implemnt Dependecy Injection
+    private readonly IGodsRepository godsRepository;
     private const string collectionName = "gods";
     private readonly IMongoCollection<God>? dbCollection;
     private readonly FilterDefinitionBuilder<God> filterBuilder = Builders<God>.Filter;
-
-    public GodsRepository()
+    public GodsRepository(IMongoDatabase database)
     {
-        var mongoClient = new MongoClient($"mongodb://localhost:27017");
-        var database = mongoClient.GetDatabase("Catalog");
         dbCollection = database.GetCollection<God>(collectionName);
     }
 
@@ -37,16 +37,16 @@ public class GodsRepository
 
     public async Task CreateAsync(God entity)
     {
-        if(entity is null)
+        if (entity is null)
         {
             throw new ArgumentNullException(nameof(entity));
         }
         await dbCollection!.InsertOneAsync(entity);
     }
 
-    public async Task UpdateAsync (God entity)
+    public async Task UpdateAsync(God entity)
     {
-        if(entity is null)
+        if (entity is null)
         {
             throw new ArgumentNullException(nameof(entity));
         }

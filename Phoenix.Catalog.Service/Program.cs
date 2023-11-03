@@ -1,8 +1,17 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
+var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var mongoDbSettings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+    var mongoClient = new MongoClient(connectionString: mongoDbSettings.ConnectionString);
+    return mongoClient.GetDatabase(name: serviceSettings.ServiceName);
+});
 
+builder.Services.AddSingleton<IGodsRepository, GodsRepository>();
 // Add services to the container.
 
 builder.Services.AddControllers();

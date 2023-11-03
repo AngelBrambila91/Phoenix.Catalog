@@ -12,19 +12,14 @@ namespace Phoenix.Catalog.Service.Controllers
     [Route("gods")]
     public class GodsController : ControllerBase
     {
-        private readonly GodsRepository godsRepository = new();
-        public static List<GodDto> gods = new()
+        private readonly IGodsRepository? godsRepository;
+        public GodsController(IGodsRepository godsRepository)
         {
-            new GodDto(Guid.NewGuid(),
-                "Zeus", "Figure of Zeus", 20.45M, DateTimeOffset.Now),
-            new GodDto(Guid.NewGuid(),
-                "Artemis", "Figure of Artemis", 40M, DateTimeOffset.Now),
-            new GodDto(Guid.NewGuid(),
-                "Aphrodite", "Figure of Aphrodite", 60M, DateTimeOffset.Now),
-        };
+            this.godsRepository = godsRepository;
+        }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GodDto>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<GodDto>>> GetAsync(IGodsRepository? godsRepository)
         {
             var gods = (await godsRepository.GetAllAsync())
             .Select(god => god.AsDto());

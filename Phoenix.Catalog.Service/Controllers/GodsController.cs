@@ -4,7 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
+using Phoenix.Catalog.Service;
 using Phoenix.Catalog.Service.Dtos;
+using Phoenix.Catalog.Service.Entities;
+using Phoenix.Common;
 
 namespace Phoenix.Catalog.Service.Controllers
 {
@@ -21,7 +25,7 @@ namespace Phoenix.Catalog.Service.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GodDto>>> GetAsync()
         {
-            var gods = (await godsRepository!.GetAllAsync())
+            var gods = (await godsRepository.GetAllAsync())
             .Select(god => god.AsDto());
             return Ok(gods);
         }
@@ -73,12 +77,9 @@ namespace Phoenix.Catalog.Service.Controllers
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var gods = await godsRepository.GetAsync(id);
-            if (gods is null)
-            {
-                return NotFound();
-            }
 
             await godsRepository.RemoveAsync(gods.Id);
+
             return NoContent();
         }
     }

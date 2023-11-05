@@ -77,3 +77,5 @@
 /Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/obj/Debug/net7.0/Phoenix.Catalog.Service.csproj.CopyComplete
 /Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/obj/Debug/net7.0/Phoenix.Catalog.Service.genruntimeconfig.cache
 /Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/obj/Debug/net7.0/ref/Phoenix.Catalog.Service.dll
+/Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/bin/Debug/net7.0/Microsoft.Extensions.Configuration.Binder.dll
+/Users/angelbrambila/Documents/Code/Phoenix/Phoenix.Catalog/Phoenix.Catalog.Service/bin/Debug/net7.0/Phoenix.Common.dll

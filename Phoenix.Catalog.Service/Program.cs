@@ -2,7 +2,11 @@ using Microsoft.VisualBasic;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using Phoenix.Catalog.Service.Repositories;
+using Phoenix.Catalog.Service.Entities;
+using Phoenix.Common;
+using Phoenix.Common.MongoDB;
+using Phoenix.Common.Settings;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();

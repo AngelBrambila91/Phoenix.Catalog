@@ -20,6 +20,7 @@
           "net7.0"
         ],
         "sources": {
+          "/Users/angelbrambila/Documents/Code/Phoenix/packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,6 +46,10 @@
             "MongoDb.Driver": {
               "target": "Package",
               "version": "[2.22.0, )"
+            },
+            "Phoenix.Common": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

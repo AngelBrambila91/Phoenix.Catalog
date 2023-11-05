@@ -1,4 +1,7 @@
 using Phoenix.Catalog.Service.Dtos;
+using Phoenix.Catalog.Service.Entities;
+
+namespace Phoenix.Catalog.Service;
 
 public static class Extensions
 {

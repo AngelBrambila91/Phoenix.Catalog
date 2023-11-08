@@ -41,6 +41,17 @@ namespace Phoenix.Catalog.Service.Controllers
             return god.AsDto();
         }
 
+        [HttpGet("name")]
+        public async Task<ActionResult<IEnumerable<GodDto>>> GetByIdNameNAsync()
+        {
+            var gods = await godsRepository.GetAsync(g => g.Name.EndsWith("n"));
+            if(gods is null)
+            {
+                return NotFound();
+            }
+            return Ok(gods);
+        }
+
         [HttpPost]
         public async Task<ActionResult<GodDto>> PostAsync(CreateGodDto createGodDto)
         {
